@@ -18,7 +18,6 @@ class ButtonController:
         # State
         self.button_pressed = False
         self.button_enabled = True
-        self.sleep_delay = 15  # Default 15 seconds
         
         # Setup GPIO
         self.gpio.setup(self.button_pin, self.gpio.IN, pull_up_down=self.gpio.PUD_UP)
@@ -60,11 +59,6 @@ class ButtonController:
         self.button_enabled = enabled
         print(f"Button functionality {'ENABLED' if enabled else 'DISABLED'}")
     
-    def set_sleep_delay(self, delay):
-        """Set the sleep delay in seconds"""
-        self.sleep_delay = delay
-        print(f"Sleep delay set to: {delay} seconds")
-    
     def process_button(self):
         """Process button input - call this in main loop"""
         if not self.button_enabled:
@@ -99,8 +93,9 @@ class ButtonController:
         
         # Turn off all LEDs and wait
         self.turn_all_leds(False)
-        print(f"Waiting {self.sleep_delay} seconds...")
-        time.sleep(self.sleep_delay)
+        delay = self.osc_manager.current_delay
+        print(f"Waiting {delay} seconds...")
+        time.sleep(delay)
         
         # Turn all LEDs back on and send release message
         self.turn_all_leds(True)

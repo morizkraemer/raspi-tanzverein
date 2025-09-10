@@ -30,22 +30,16 @@ class OSCHandler:
         # Delay presets
         elif address == "/2/dmx/1":
             self.osc_manager.set_delay_preset(1)
-            self.button_controller.set_sleep_delay(self.osc_manager.current_delay)
         elif address == "/2/dmx/2":
             self.osc_manager.set_delay_preset(2)
-            self.button_controller.set_sleep_delay(self.osc_manager.current_delay)
         elif address == "/2/dmx/3":
             self.osc_manager.set_delay_preset(3)
-            self.button_controller.set_sleep_delay(self.osc_manager.current_delay)
         elif address == "/2/dmx/4":
             self.osc_manager.set_delay_preset(4)
-            self.button_controller.set_sleep_delay(self.osc_manager.current_delay)
         elif address == "/2/dmx/5":
             self.osc_manager.set_delay_preset(5)
-            self.button_controller.set_sleep_delay(self.osc_manager.current_delay)
         elif address == "/2/dmx/6":
             self.osc_manager.set_delay_preset(6)
-            self.button_controller.set_sleep_delay(self.osc_manager.current_delay)
         
         # Path selection
         elif address == "/2/dmx/7":
