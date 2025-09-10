@@ -16,7 +16,7 @@ On non-Raspberry Pi systems, press Enter or Space to simulate button press.
 
 ## Dependencies
 ```bash
-pip install python-osc
+pip install -r requirements.txt
 pip install RPi.GPIO  # Only on Raspberry Pi
 ```
 
