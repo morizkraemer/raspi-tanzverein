@@ -1,93 +1,85 @@
+#!/usr/bin/env python3
+"""
+Main System - Clean architecture for GPIO button control with OSC
+"""
 
-from sre_parse import IN_IGNORE
+import time
+import threading
 from pythonosc.udp_client import SimpleUDPClient
 from pythonosc.dispatcher import Dispatcher
 from pythonosc import osc_server
-import threading
-import time
 
-import RPi.GPIO as GPIO
+from mock_gpio import GPIO
+from button_controller import ButtonController
+from osc_manager import OSCManager
+from osc_handler import OSCHandler
 
+# Configuration
 IP = "127.0.0.1"
 IN_PORT = 9001
 OUT_PORT = 7700
-OSC_BUTTON_PATH = "/button"
-client = SimpleUDPClient(IP, OUT_PORT)
-
 
 # Pin definitions
 BUTTON_PIN = 16
-LED_PIN = 20
-
-# Setup
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Active-low button
-GPIO.setup(LED_PIN, GPIO.OUT)
+LED_PINS = {
+    "led1": 20,  # First LED
+    "led2": 21   # Second LED
+}
 
 
-def turn_led(on):
-    GPIO.output(LED_PIN, GPIO.HIGH if on else GPIO.LOW)
-    print("LED ON" if on else "LED OFF")
-
-def handle_osc_message(address, *args):
-    """Handle incoming OSC messages"""
-    print(f"📨 OSC: {address} {args}")
-    
-    # Optional: Handle specific messages
-    if address == "/led":
-        if len(args) > 0:
-            turn_led(bool(args[0]))
-
-def start_osc_server():
+def start_osc_server(osc_handler):
     """Start the OSC server in a separate thread"""
     dispatcher = Dispatcher()
-    
-    # Map all messages to the handler (catch-all)
-    dispatcher.set_default_handler(handle_osc_message)
-    
+    dispatcher.set_default_handler(osc_handler.handle_message)
+
     server = osc_server.ThreadingOSCUDPServer((IP, IN_PORT), dispatcher)
     print(f"OSC server listening on {IP}:{IN_PORT}")
-    print("📡 Ready to receive any OSC message...")
+    print("📡 Ready to receive OSC messages...")
     server.serve_forever()
 
 
 def main():
-    print("Starting OSC server...")
-    # Start OSC server in a separate thread
-    osc_thread = threading.Thread(target=start_osc_server, daemon=True)
-    osc_thread.start()
-    
-    print("Waiting for button press...")
-    turn_led(True)  # Turn on the LED initially
+    print("🚀 Starting Tanzen Button Control System...")
 
-    button_pressed = False
-    
+    # Initialize GPIO
+    GPIO.setmode(GPIO.BCM)
+
+    # Initialize OSC client
+    osc_client = SimpleUDPClient(IP, OUT_PORT)
+
+    # Initialize system components
+    osc_manager = OSCManager()
+    button_controller = ButtonController(
+        GPIO, BUTTON_PIN, LED_PINS, osc_client)
+    osc_handler = OSCHandler(button_controller, osc_manager)
+
+    # Start OSC server
+    osc_thread = threading.Thread(
+        target=start_osc_server, args=(osc_handler,), daemon=True)
+    osc_thread.start()
+
+    print("✅ System ready!")
+    print("📋 Available OSC commands:")
+    print("   /1/dmx/0           - Toggle button enabled/disabled")
+    print("   /1/dmx/1-4         - Delay presets (5s, 15s, 30s, 60s)")
+    print("   /1/path/1-5        - Button paths (/button, /trigger, /press, /action, /event)")
+    print("   /1/led/1/on|off|toggle - Control LED 1")
+    print("   /1/led/2/on|off|toggle - Control LED 2")
+    print("   /1/led/all/on|off  - Control all LEDs")
+    print("   /1/dmx/status      - Get status")
+    print("-" * 50)
+
     try:
         while True:
-            current_state = GPIO.input(BUTTON_PIN)
-            
-            # Detect button press (transition from HIGH to LOW)
-            if current_state == GPIO.LOW and not button_pressed:
-                button_pressed = True
-                client.send_message(OSC_BUTTON_PATH, 1)  # Button pressed
-                print("Button pressed!")
+            # Process button input
+            button_controller.process_button()
+            time.sleep(0.1)
 
-                turn_led(False)
-                print("Waiting 15 seconds...")
-                time.sleep(15)
-                turn_led(True)
-                client.send_message(OSC_BUTTON_PATH, 1)  # Button released
-                print("LED turned on again.")
-            
-            # Detect button release (transition from LOW to HIGH)
-            elif current_state == GPIO.HIGH and button_pressed:
-                button_pressed = False
-                print("Button released, ready for next press")
-            
-            time.sleep(0.1)  # Check more frequently for better responsiveness
     except KeyboardInterrupt:
+        print("\n🛑 Shutting down...")
+        button_controller.cleanup()
         GPIO.cleanup()
-        print("Program stopped.")
+        print("✅ System stopped.")
 
 
 if __name__ == "__main__":
