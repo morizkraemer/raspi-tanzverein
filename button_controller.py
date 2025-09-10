@@ -8,11 +8,12 @@ import threading
 from pythonosc.udp_client import SimpleUDPClient
 
 class ButtonController:
-    def __init__(self, gpio, button_pin, led_pins, osc_client):
+    def __init__(self, gpio, button_pin, led_pins, osc_client, osc_manager):
         self.gpio = gpio
         self.button_pin = button_pin
         self.led_pins = led_pins  # Dictionary of LED names to pins
         self.osc_client = osc_client
+        self.osc_manager = osc_manager
         
         # State
         self.button_pressed = False
@@ -89,8 +90,12 @@ class ButtonController:
         """Handle button press sequence"""
         print("Button pressed!")
         
-        # Send OSC message
-        self.osc_client.send_message("/button", 1)
+        # Get current OSC path from manager
+        osc_path = self.osc_manager.get_button_path()
+        
+        # Send OSC message to current path
+        self.osc_client.send_message(osc_path, 1)
+        print(f"Sent OSC: {osc_path} = 1")
         
         # Turn off all LEDs and wait
         self.turn_all_leds(False)
@@ -99,7 +104,8 @@ class ButtonController:
         
         # Turn all LEDs back on and send release message
         self.turn_all_leds(True)
-        self.osc_client.send_message("/button", 0)
+        self.osc_client.send_message(osc_path, 0)
+        print(f"Sent OSC: {osc_path} = 0")
         print("All LEDs turned on again.")
     
     def cleanup(self):

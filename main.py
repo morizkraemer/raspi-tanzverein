@@ -50,7 +50,7 @@ def main():
     # Initialize system components
     osc_manager = OSCManager()
     button_controller = ButtonController(
-        GPIO, BUTTON_PIN, LED_PINS, osc_client)
+        GPIO, BUTTON_PIN, LED_PINS, osc_client, osc_manager)
     osc_handler = OSCHandler(button_controller, osc_manager)
 
     # Start OSC server

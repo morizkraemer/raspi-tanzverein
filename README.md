@@ -24,33 +24,27 @@ pip install RPi.GPIO  # Only on Raspberry Pi
 ## OSC Control System
 
 ### Button Control
-- `/1/dmx/0` - Toggle button enabled/disabled
+- `/2/dmx/0` - Enable/disable button (0=disable, 1=enable, no arg=toggle)
 
 ### Delay Presets
-- `/1/dmx/1` - Quick (5 seconds)
-- `/1/dmx/2` - Medium (15 seconds)
-- `/1/dmx/3` - Long (30 seconds)
-- `/1/dmx/4` - Very Long (60 seconds)
+- `/2/dmx/1` - 30 seconds
+- `/2/dmx/2` - 60 seconds
+- `/2/dmx/3` - 120 seconds
+- `/2/dmx/4` - 300 seconds
+- `/2/dmx/5` - 600 seconds
+- `/2/dmx/6` - 1200 seconds
 
 ### Button Paths
-- `/1/path/1` - `/button`
-- `/1/path/2` - `/trigger`
-- `/1/path/3` - `/press`
-- `/1/path/4` - `/action`
-- `/1/path/5` - `/event`
+- `/2/dmx/7` - `/button`
+- `/2/dmx/8` - `/trigger`
+- `/2/dmx/9` - `/press`
+- `/2/dmx/10` - `/action`
+- `/2/dmx/11` - `/event`
 
-### LED Control
-- `/1/led/1/on` - Turn LED 1 on
-- `/1/led/1/off` - Turn LED 1 off
-- `/1/led/1/toggle` - Toggle LED 1
-- `/1/led/2/on` - Turn LED 2 on
-- `/1/led/2/off` - Turn LED 2 off
-- `/1/led/2/toggle` - Toggle LED 2
-- `/1/led/all/on` - Turn all LEDs on
-- `/1/led/all/off` - Turn all LEDs off
-
-### Status
-- `/1/dmx/status` - Get current status
+### Button Behavior
+When button is pressed, it sends OSC messages to the currently selected path:
+- Press: `{selected_path} = 1`
+- Release: `{selected_path} = 0`
 
 ## Architecture
 - `main.py` - Main system orchestrator
