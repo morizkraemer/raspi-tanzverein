@@ -7,21 +7,22 @@ class OSCManager:
     def __init__(self):
         # Button path presets
         self.button_paths = {
-            1: "/button1",
-            2: "/button2", 
-            3: "/button3",
-            4: "/button4",
-            5: "/button5"
+            1: "Scene A",
+            2: "Scene B", 
+            3: "Scene C",
+            4: "Scene D",
+            5: "Scene E"
         }
         
         # Delay presets
         self.delay_presets = {
-            1: 30,
-            2: 60,
-            3: 120,
-            4: 300,  
-            5: 600,
-            6: 1200,
+            0: 0,     # No delay
+            1: 30,    # 30 seconds
+            2: 60,    # 1 minute
+            3: 300,   # 5 minutes
+            4: 1800,  # 30 minutes
+            5: 3600,  # 1 hour
+            6: 7200,  # 2 hours
         }
         
         # Current settings
@@ -43,13 +44,16 @@ class OSCManager:
             return False
     
     def set_delay_preset(self, preset_id):
-        """Set delay by preset ID (1-6)"""
+        """Set delay by preset ID (0-6)"""
         if preset_id in self.delay_presets:
             self.current_delay = self.delay_presets[preset_id]
-            print(f"Sleep delay set to: {self.current_delay} seconds")
+            if self.current_delay == 0:
+                print("Sleep delay set to: NO DELAY (immediate)")
+            else:
+                print(f"Sleep delay set to: {self.current_delay} seconds")
             return True
         else:
-            print(f"Invalid delay preset: {preset_id}. Must be 1-6")
+            print(f"Invalid delay preset: {preset_id}. Must be 0-6")
             return False
     
     def get_status(self):

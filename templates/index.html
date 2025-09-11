@@ -338,13 +338,13 @@
                     <label>Time:</label>
                     <div class="custom-dropdown" id="delayDropdown">
                         <div class="dropdown-selected" onclick="toggleDropdown('delayDropdown')">
-                            <span id="delaySelected">{{ current_delay }}s</span>
+                            <span id="delaySelected">{{ 'No delay' if current_delay == 0 else (current_delay // 3600 ~ 'h ' if current_delay >= 3600 else '') ~ (current_delay % 3600 // 60 ~ 'm ' if current_delay >= 60 and current_delay % 3600 > 0 else '') ~ (current_delay % 60 ~ 's' if current_delay % 60 > 0 or current_delay < 60 else '') }}</span>
                             <span class="dropdown-arrow">▼</span>
                         </div>
                         <div class="dropdown-options" id="delayOptions">
                             {% for id, delay in available_delays.items() %}
                             <div class="dropdown-option" data-value="{{ id }}" onclick="selectDelay({{ id }}, {{ delay }})">
-                                {{ delay }}s
+                                {{ 'No delay' if delay == 0 else (delay // 3600 ~ 'h ' if delay >= 3600 else '') ~ (delay % 3600 // 60 ~ 'm ' if delay >= 60 and delay % 3600 > 0 else '') ~ (delay % 60 ~ 's' if delay % 60 > 0 or delay < 60 else '') }}
                             </div>
                             {% endfor %}
                         </div>
@@ -431,7 +431,8 @@
         }
         
         function selectDelay(delayId, delayValue) {
-            document.getElementById('delaySelected').textContent = delayValue + 's';
+            const displayText = formatDelay(delayValue);
+            document.getElementById('delaySelected').textContent = displayText;
             document.getElementById('delayOptions').classList.remove('show');
             document.querySelector('#delayDropdown .dropdown-selected').classList.remove('active');
             
@@ -445,7 +446,8 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    showStatus('Delay: ' + data.current_delay + 's', 'success');
+                    const statusText = formatDelay(data.current_delay);
+                    showStatus('Delay: ' + statusText, 'success');
                 } else {
                     showStatus('Error: ' + data.error, 'error');
                 }
@@ -453,6 +455,21 @@
             .catch(error => {
                 showStatus('Error: ' + error, 'error');
             });
+        }
+        
+        function formatDelay(seconds) {
+            if (seconds === 0) return 'No delay';
+            
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = seconds % 60;
+            
+            let result = '';
+            if (hours > 0) result += hours + 'h ';
+            if (minutes > 0) result += minutes + 'm ';
+            if (remainingSeconds > 0 || result === '') result += remainingSeconds + 's';
+            
+            return result.trim();
         }
         
         // Close dropdowns when clicking outside

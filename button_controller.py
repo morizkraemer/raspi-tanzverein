@@ -91,11 +91,15 @@ class ButtonController:
         self.osc_client.send_message(osc_path, 1)
         print(f"Sent OSC: {osc_path} = 1")
         
-        # Turn off all LEDs and wait
+        # Turn off all LEDs and wait (if delay > 0)
         self.turn_all_leds(False)
         delay = self.osc_manager.current_delay
-        print(f"Waiting {delay} seconds...")
-        time.sleep(delay)
+        
+        if delay > 0:
+            print(f"Waiting {delay} seconds...")
+            time.sleep(delay)
+        else:
+            print("No delay - immediate release")
         
         # Turn all LEDs back on and send release message
         self.turn_all_leds(True)
