@@ -88,8 +88,10 @@ class ButtonController:
         osc_path = self.osc_manager.get_button_path()
         
         # Send OSC message to current path
+        # Try both int and float for QLC+ compatibility
         self.osc_client.send_message(osc_path, 1)
-        print(f"Sent OSC: {osc_path} = 1")
+        self.osc_client.send_message(osc_path, 1.0)
+        print(f"Sent OSC: {osc_path} = 1 (int) and 1.0 (float)")
         
         # Turn off all LEDs and wait
         self.turn_all_leds(False)
@@ -100,7 +102,8 @@ class ButtonController:
         # Turn all LEDs back on and send release message
         self.turn_all_leds(True)
         self.osc_client.send_message(osc_path, 0)
-        print(f"Sent OSC: {osc_path} = 0")
+        self.osc_client.send_message(osc_path, 0.0)
+        print(f"Sent OSC: {osc_path} = 0 (int) and 0.0 (float)")
         print("All LEDs turned on again.")
     
     def cleanup(self):
