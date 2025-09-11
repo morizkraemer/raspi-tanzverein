@@ -6,18 +6,16 @@ Main System - Clean architecture for GPIO button control with OSC
 import time
 import threading
 from pythonosc.udp_client import SimpleUDPClient
-from pythonosc.dispatcher import Dispatcher
-from pythonosc import osc_server
 
 from mock_gpio import GPIO
 from button_controller import ButtonController
 from osc_manager import OSCManager
-from osc_handler import OSCHandler
+from web_config import create_app
 
 # Configuration
 IP = "127.0.0.1"
-IN_PORT = 9001
 OUT_PORT = 7700
+WEB_PORT = 3001
 
 # Pin definitions
 BUTTON_PIN = 16
@@ -27,54 +25,54 @@ LED_PINS = {
 }
 
 
-def start_osc_server(osc_handler):
-    """Start the OSC server in a separate thread"""
-    dispatcher = Dispatcher()
-    dispatcher.set_default_handler(osc_handler.handle_message)
+# OSC receiving removed - button functions remain configurable
 
-    server = osc_server.ThreadingOSCUDPServer((IP, IN_PORT), dispatcher)
-    print(f"OSC server listening on {IP}:{IN_PORT}")
-    print("📡 Ready to receive OSC messages...")
-    server.serve_forever()
+def initialize_system():
+    """Initialize the button control system"""
+    # Initialize GPIO
+    GPIO.setmode(GPIO.BCM)
+    
+    # Initialize OSC client
+    osc_client = SimpleUDPClient(IP, OUT_PORT)
+    
+    # Initialize system components
+    osc_manager = OSCManager()
+    button_controller = ButtonController(GPIO, BUTTON_PIN, LED_PINS, osc_client, osc_manager)
+    
+    return button_controller, osc_manager, osc_client
 
+def run_button_loop(button_controller):
+    """Run the button processing loop in a separate thread"""
+    while True:
+        button_controller.process_button()
+        time.sleep(0.1)
 
 def main():
     print("🚀 Starting Tanzen Button Control System...")
-
-    # Initialize GPIO
-    GPIO.setmode(GPIO.BCM)
-
-    # Initialize OSC client
-    osc_client = SimpleUDPClient(IP, OUT_PORT)
-
-    # Initialize system components
-    osc_manager = OSCManager()
-    button_controller = ButtonController(
-        GPIO, BUTTON_PIN, LED_PINS, osc_client, osc_manager)
-    osc_handler = OSCHandler(button_controller, osc_manager)
-
-    # Start OSC server
-    osc_thread = threading.Thread(
-        target=start_osc_server, args=(osc_handler,), daemon=True)
-    osc_thread.start()
-
+    
+    # Initialize the system
+    button_controller, osc_manager, osc_client = initialize_system()
+    
+    # Create Flask app with initialized components
+    app = create_app(button_controller, osc_manager, osc_client)
+    
     print("✅ System ready!")
-    print("📋 Available OSC commands:")
-    print("   /1/dmx/0           - Toggle button enabled/disabled")
-    print("   /1/dmx/1-4         - Delay presets (5s, 15s, 30s, 60s)")
-    print("   /1/path/1-5        - Button paths (/button, /trigger, /press, /action, /event)")
-    print("   /1/led/1/on|off|toggle - Control LED 1")
-    print("   /1/led/2/on|off|toggle - Control LED 2")
-    print("   /1/led/all/on|off  - Control all LEDs")
-    print("   /1/dmx/status      - Get status")
+    print("📋 Button Configuration:")
+    print(f"   Current Path: {osc_manager.get_button_path()}")
+    print(f"   Current Delay: {osc_manager.current_delay} seconds")
+    print(f"   Button Status: {'ENABLED' if button_controller.button_enabled else 'DISABLED'}")
+    print("📡 OSC Sending: Button presses send to configured path")
+    print(f"🌐 Web Interface: http://localhost:{WEB_PORT}")
     print("-" * 50)
-
+    
+    # Start button processing in a separate thread
+    button_thread = threading.Thread(target=run_button_loop, args=(button_controller,), daemon=True)
+    button_thread.start()
+    
     try:
-        while True:
-            # Process button input
-            button_controller.process_button()
-            time.sleep(0.1)
-
+        # Start the web interface (this will block)
+        app.run(host='0.0.0.0', port=WEB_PORT, debug=False)
+        
     except KeyboardInterrupt:
         print("\n🛑 Shutting down...")
         button_controller.cleanup()

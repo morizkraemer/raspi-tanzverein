@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Tanzen Control</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 8px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9em;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #3498db;
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        
+        .control-group label {
+            font-weight: 600;
+            color: #34495e;
+            font-size: 1em;
+            text-align: left;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 70px;
+            height: 40px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 40px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 32px;
+            width: 32px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        input:checked + .slider {
+            background-color: #27ae60;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+        
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+        }
+        
+        .dropdown-selected {
+            width: 100%;
+            padding: 20px;
+            border: 3px solid #ddd;
+            border-radius: 15px;
+            font-size: 18px;
+            background: white;
+            color: #333;
+            min-height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-selected:hover {
+            border-color: #3498db;
+        }
+        
+        .dropdown-arrow {
+            font-size: 16px;
+            color: #666;
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown-selected.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 3px solid #3498db;
+            border-top: none;
+            border-radius: 0 0 15px 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .dropdown-options.show {
+            display: block;
+        }
+        
+        .dropdown-option {
+            padding: 20px;
+            font-size: 18px;
+            color: #333;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s ease;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dropdown-option:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .dropdown-option:last-child {
+            border-bottom: none;
+        }
+        
+        button {
+            padding: 18px 20px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            min-height: 55px;
+            width: 100%;
+        }
+        
+        button:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        button {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            min-width: 120px;
+            touch-action: manipulation;
+        }
+        
+        button:active {
+            transform: scale(0.95);
+        }
+        
+        .status {
+            background: #e8f5e8;
+            border: 1px solid #27ae60;
+            color: #27ae60;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            display: none;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        
+        
+        .button-status {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #27ae60;
+        }
+        
+        .button-status.disabled {
+            color: #e74c3c;
+        }
+        
+        /* Mobile-specific improvements */
+        @media (max-width: 480px) {
+            .content {
+                padding: 15px;
+            }
+            
+            .section {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .dropdown-selected {
+                min-height: 70px;
+                font-size: 20px;
+                padding: 25px;
+            }
+            
+            .dropdown-option {
+                padding: 25px;
+                font-size: 20px;
+                min-height: 70px;
+            }
+            
+            button {
+                min-height: 60px;
+                font-size: 18px;
+            }
+        }
+        
+        /* Prevent zoom on input focus */
+        input, select, textarea {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎛️ Tanzen Control</h1>
+            <p>Button & LED Control</p>
+        </div>
+        
+        <div class="content">
+            <!-- Button Control -->
+            <div class="section">
+                <h2>🔘 Button Control</h2>
+                <div class="control-group">
+                    <label>Status:</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="buttonToggle" {{ 'checked' if button_enabled else '' }}>
+                        <span class="slider"></span>
+                    </label>
+                    <span id="buttonStatus" class="button-status {{ 'disabled' if not button_enabled else '' }}">{{ 'ENABLED' if button_enabled else 'DISABLED' }}</span>
+                </div>
+            </div>
+            
+            <!-- OSC Path Selection -->
+            <div class="section">
+                <h2>📡 OSC Path</h2>
+                <div class="control-group">
+                    <label>Path:</label>
+                    <div class="custom-dropdown" id="pathDropdown">
+                        <div class="dropdown-selected" onclick="toggleDropdown('pathDropdown')">
+                            <span id="pathSelected">{{ current_path }}</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                        <div class="dropdown-options" id="pathOptions">
+                            {% for id, path in available_paths.items() %}
+                            <div class="dropdown-option" data-value="{{ id }}" onclick="selectPath({{ id }}, '{{ path }}')">
+                                {{ path }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Delay Settings -->
+            <div class="section">
+                <h2>⏱️ Delay</h2>
+                <div class="control-group">
+                    <label>Time:</label>
+                    <div class="custom-dropdown" id="delayDropdown">
+                        <div class="dropdown-selected" onclick="toggleDropdown('delayDropdown')">
+                            <span id="delaySelected">{{ current_delay }}s</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                        <div class="dropdown-options" id="delayOptions">
+                            {% for id, delay in available_delays.items() %}
+                            <div class="dropdown-option" data-value="{{ id }}" onclick="selectDelay({{ id }}, {{ delay }})">
+                                {{ delay }}s
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <!-- Status Messages -->
+            <div id="status" class="status"></div>
+        </div>
+    </div>
+
+    <script>
+        // Button toggle functionality
+        document.getElementById('buttonToggle').addEventListener('change', function() {
+            const enabled = this.checked;
+            const status = document.getElementById('buttonStatus');
+            
+            fetch('/api/button', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({enabled: enabled})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    status.textContent = data.button_enabled ? 'ENABLED' : 'DISABLED';
+                    status.className = 'button-status ' + (data.button_enabled ? '' : 'disabled');
+                    showStatus('Button ' + (data.button_enabled ? 'enabled' : 'disabled') + '!', 'success');
+                } else {
+                    showStatus('Error: ' + data.error, 'error');
+                }
+            })
+            .catch(error => {
+                showStatus('Error: ' + error, 'error');
+            });
+        });
+        
+        // Custom dropdown functions
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            const selected = dropdown.querySelector('.dropdown-selected');
+            const options = dropdown.querySelector('.dropdown-options');
+            
+            // Close other dropdowns
+            document.querySelectorAll('.dropdown-options').forEach(opt => {
+                if (opt !== options) {
+                    opt.classList.remove('show');
+                    opt.parentElement.querySelector('.dropdown-selected').classList.remove('active');
+                }
+            });
+            
+            // Toggle current dropdown
+            options.classList.toggle('show');
+            selected.classList.toggle('active');
+        }
+        
+        function selectPath(pathId, pathName) {
+            document.getElementById('pathSelected').textContent = pathName;
+            document.getElementById('pathOptions').classList.remove('show');
+            document.querySelector('#pathDropdown .dropdown-selected').classList.remove('active');
+            
+            fetch('/api/path', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({path_id: pathId})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showStatus('Path: ' + data.current_path, 'success');
+                } else {
+                    showStatus('Error: ' + data.error, 'error');
+                }
+            })
+            .catch(error => {
+                showStatus('Error: ' + error, 'error');
+            });
+        }
+        
+        function selectDelay(delayId, delayValue) {
+            document.getElementById('delaySelected').textContent = delayValue + 's';
+            document.getElementById('delayOptions').classList.remove('show');
+            document.querySelector('#delayDropdown .dropdown-selected').classList.remove('active');
+            
+            fetch('/api/delay', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({delay_id: delayId})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showStatus('Delay: ' + data.current_delay + 's', 'success');
+                } else {
+                    showStatus('Error: ' + data.error, 'error');
+                }
+            })
+            .catch(error => {
+                showStatus('Error: ' + error, 'error');
+            });
+        }
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.custom-dropdown')) {
+                document.querySelectorAll('.dropdown-options').forEach(opt => {
+                    opt.classList.remove('show');
+                    opt.parentElement.querySelector('.dropdown-selected').classList.remove('active');
+                });
+            }
+        });
+        
+        
+        // Status message display
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.style.display = 'block';
+            status.style.background = type === 'success' ? '#e8f5e8' : '#f8d7da';
+            status.style.borderColor = type === 'success' ? '#27ae60' : '#e74c3c';
+            status.style.color = type === 'success' ? '#27ae60' : '#e74c3c';
+            
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
