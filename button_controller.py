@@ -91,21 +91,37 @@ class ButtonController:
         self.osc_client.send_message(osc_path, 1)
         print(f"Sent OSC: {osc_path} = 1")
         
-        # Turn off all LEDs and wait (if delay > 0)
+        # Turn off all LEDs
         self.turn_all_leds(False)
-        delay = self.osc_manager.current_delay
         
-        if delay > 0:
-            print(f"Waiting {delay} seconds...")
-            time.sleep(delay)
+        # Start effect duration timer in a separate thread
+        effect_thread = threading.Thread(target=self._run_effect_duration, args=(osc_path,), daemon=True)
+        effect_thread.start()
+        
+        # Handle block delay in main thread
+        block_delay = self.osc_manager.current_delay
+        if block_delay > 0:
+            print(f"Blocking button for {block_delay} seconds...")
+            time.sleep(block_delay)
         else:
-            print("No delay - immediate release")
+            print("No block delay - immediate release")
         
-        # Turn all LEDs back on and send release message
+        # Turn all LEDs back on when block is released
         self.turn_all_leds(True)
+        print("All LEDs turned on again - button unblocked.")
+    
+    def _run_effect_duration(self, osc_path):
+        """Run effect duration timer in separate thread"""
+        osc_off_delay = self.osc_manager.current_osc_off_delay
+        
+        if osc_off_delay > 0:
+            print(f"Effect duration: {osc_off_delay} seconds...")
+            time.sleep(osc_off_delay)
+        else:
+            print("No effect duration - ending immediately")
+            
         self.osc_client.send_message(osc_path, 0)
         print(f"Sent OSC: {osc_path} = 0")
-        print("All LEDs turned on again.")
     
     def cleanup(self):
         """Clean up resources"""

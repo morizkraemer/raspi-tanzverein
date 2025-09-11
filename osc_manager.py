@@ -5,7 +5,7 @@ Handles OSC message routing, path management, and delay presets
 
 class OSCManager:
     def __init__(self):
-        # Button path presets
+        # QLC Scene presets
         self.button_paths = {
             1: "Scene A",
             2: "Scene B", 
@@ -27,20 +27,21 @@ class OSCManager:
         
         # Current settings
         self.current_path = 1
-        self.current_delay = 30
+        self.current_delay = 30  # Block delay (how long button is blocked)
+        self.current_osc_off_delay = 30  # OSC off delay (when to send release message)
         
     def get_button_path(self):
-        """Get current button path"""
+        """Get current QLC scene"""
         return self.button_paths[self.current_path]
     
     def set_button_path(self, path_id):
-        """Set button path by ID (1-5)"""
+        """Set QLC scene by ID (1-5)"""
         if path_id in self.button_paths:
             self.current_path = path_id
-            print(f"Button path set to: {self.get_button_path()}")
+            print(f"QLC scene set to: {self.get_button_path()}")
             return True
         else:
-            print(f"Invalid path ID: {path_id}. Must be 1-5")
+            print(f"Invalid scene ID: {path_id}. Must be 1-5")
             return False
     
     def set_delay_preset(self, preset_id):
@@ -59,7 +60,8 @@ class OSCManager:
     def get_status(self):
         """Get current status"""
         return {
-            'path': self.get_button_path(),
+            'scene': self.get_button_path(),
             'delay': self.current_delay,
-            'path_id': self.current_path
+            'osc_off_delay': self.current_osc_off_delay,
+            'scene_id': self.current_path
         }
