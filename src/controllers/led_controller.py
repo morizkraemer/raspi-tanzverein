@@ -6,13 +6,13 @@ class LEDController:
         self.gpio = gpio
         self.pins = pins
         self.leds = {}
-        for pin in self.pins:
-            self.leds[pin] = LED(gpio, pin)
+        for led_name, pin in self.pins.items():
+            self.leds[led_name] = LED(gpio, pin)
 
     def turn_led(self, led_name, on):
         """Turn specific LED on or off"""
-        if led_name in self.led_pins:
-            led_pin = self.led_pins[led_name]
+        if led_name in self.pins:
+            led_pin = self.pins[led_name]
             self.gpio.output(led_pin, self.gpio.HIGH if on else self.gpio.LOW)
             print(f"LED '{led_name}' {'ON' if on else 'OFF'}")
         else:
@@ -20,7 +20,7 @@ class LEDController:
     
     def turn_all_leds(self, on):
         """Turn all LEDs on or off"""
-        for led_name in self.led_pins:
+        for led_name in self.pins:
             self.turn_led(led_name, on)
 
     def cleanup(self):
