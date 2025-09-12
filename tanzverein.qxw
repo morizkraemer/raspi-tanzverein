@@ -3,16 +3,12 @@
 <Workspace xmlns="http://www.qlcplus.org/Workspace" CurrentWindow="VirtualConsole">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.14.3</Version>
-  <Author>Moriz Krämer</Author>
+  <Version>4.12.6</Version>
+  <Author></Author>
  </Creator>
  <Engine>
   <InputOutputMap>
-   <BeatGenerator BeatType="Disabled" BPM="0"/>
-   <Universe Name="Universe 1" ID="0">
-    <Input Plugin="MIDI" UID="None" Line="1"/>
-    <Output Plugin="DMX USB" UID="None" Line="0"/>
-   </Universe>
+   <Universe Name="Universe 1" ID="0"/>
    <Universe Name="Universe 2" ID="1">
     <Input Plugin="Loopback" UID="Loopback 2" Line="1"/>
     <Output Plugin="Loopback" UID="Loopback 2" Line="1">
@@ -20,15 +16,11 @@
     </Output>
    </Universe>
    <Universe Name="Universe 3" ID="2">
-    <Output Plugin="OSC" UID="127.0.0.1" Line="0">
-     <PluginParameters outputPort="9001"/>
-    </Output>
-   </Universe>
-   <Universe Name="Universe 4" ID="3">
-    <Input Plugin="OSC" UID="127.0.0.1" Line="0">
+    <Input Plugin="OSC" UID="127.0.0.1" Line="1">
      <PluginParameters inputPort="7700"/>
     </Input>
    </Universe>
+   <Universe Name="Universe 4" ID="3"/>
   </InputOutputMap>
   <Fixture>
    <Manufacturer>Generic</Manufacturer>
@@ -84,126 +76,6 @@
    <Manufacturer>Generic</Manufacturer>
    <Model>Generic</Model>
    <Mode>1 Channel</Mode>
-   <ID>5</ID>
-   <Name>button toggle</Name>
-   <Universe>2</Universe>
-   <Address>0</Address>
-   <Channels>1</Channels>
-  </Fixture>
-  <Fixture>
-   <Manufacturer>Generic</Manufacturer>
-   <Model>Generic</Model>
-   <Mode>1 Channel</Mode>
-   <ID>6</ID>
-   <Name>button delay 30</Name>
-   <Universe>2</Universe>
-   <Address>1</Address>
-   <Channels>1</Channels>
-  </Fixture>
-  <Fixture>
-   <Manufacturer>Generic</Manufacturer>
-   <Model>Generic</Model>
-   <Mode>1 Channel</Mode>
-   <ID>7</ID>
-   <Name>button delay 60</Name>
-   <Universe>2</Universe>
-   <Address>2</Address>
-   <Channels>1</Channels>
-  </Fixture>
-  <Fixture>
-   <Manufacturer>Generic</Manufacturer>
-   <Model>Generic</Model>
-   <Mode>1 Channel</Mode>
-   <ID>8</ID>
-   <Name>button delay 120</Name>
-   <Universe>2</Universe>
-   <Address>3</Address>
-   <Channels>1</Channels>
-  </Fixture>
-  <Fixture>
-   <Manufacturer>Generic</Manufacturer>
-   <Model>Generic</Model>
-   <Mode>1 Channel</Mode>
-   <ID>9</ID>
-   <Name>button delay 300</Name>
-   <Universe>2</Universe>
-   <Address>4</Address>
-   <Channels>1</Channels>
-  </Fixture>
-  <Fixture>
-   <Manufacturer>Generic</Manufacturer>
-   <Model>Generic</Model>
-   <Mode>1 Channel</Mode>
-   <ID>10</ID>
-   <Name>button delay 600</Name>
-   <Universe>2</Universe>
-   <Address>5</Address>
-   <Channels>1</Channels>
-  </Fixture>
-  <Fixture>
-   <Manufacturer>Generic</Manufacturer>
-   <Model>Generic</Model>
-   <Mode>1 Channel</Mode>
-   <ID>11</ID>
-   <Name>button delay 1200</Name>
-   <Universe>2</Universe>
-   <Address>6</Address>
-   <Channels>1</Channels>
-  </Fixture>
-  <Fixture>
-   <Manufacturer>Generic</Manufacturer>
-   <Model>Generic</Model>
-   <Mode>1 Channel</Mode>
-   <ID>12</ID>
-   <Name>button path a</Name>
-   <Universe>2</Universe>
-   <Address>7</Address>
-   <Channels>1</Channels>
-  </Fixture>
-  <Fixture>
-   <Manufacturer>Generic</Manufacturer>
-   <Model>Generic</Model>
-   <Mode>1 Channel</Mode>
-   <ID>13</ID>
-   <Name>button path b</Name>
-   <Universe>2</Universe>
-   <Address>8</Address>
-   <Channels>1</Channels>
-  </Fixture>
-  <Fixture>
-   <Manufacturer>Generic</Manufacturer>
-   <Model>Generic</Model>
-   <Mode>1 Channel</Mode>
-   <ID>14</ID>
-   <Name>button path c</Name>
-   <Universe>2</Universe>
-   <Address>9</Address>
-   <Channels>1</Channels>
-  </Fixture>
-  <Fixture>
-   <Manufacturer>Generic</Manufacturer>
-   <Model>Generic</Model>
-   <Mode>1 Channel</Mode>
-   <ID>15</ID>
-   <Name>button path d</Name>
-   <Universe>2</Universe>
-   <Address>10</Address>
-   <Channels>1</Channels>
-  </Fixture>
-  <Fixture>
-   <Manufacturer>Generic</Manufacturer>
-   <Model>Generic</Model>
-   <Mode>1 Channel</Mode>
-   <ID>16</ID>
-   <Name>button path e</Name>
-   <Universe>2</Universe>
-   <Address>11</Address>
-   <Channels>1</Channels>
-  </Fixture>
-  <Fixture>
-   <Manufacturer>Generic</Manufacturer>
-   <Model>Generic</Model>
-   <Mode>1 Channel</Mode>
    <ID>17</ID>
    <Name>half tempo</Name>
    <Universe>1</Universe>
@@ -227,17 +99,6 @@
    <Head X="1" Y="0" Fixture="1">0</Head>
    <Head X="0" Y="1" Fixture="2">0</Head>
    <Head X="1" Y="1" Fixture="3">0</Head>
-   <Head X="0" Y="2" Fixture="5">0</Head>
-   <Head X="1" Y="2" Fixture="6">0</Head>
-   <Head X="0" Y="3" Fixture="7">0</Head>
-   <Head X="1" Y="3" Fixture="8">0</Head>
-   <Head X="0" Y="4" Fixture="9">0</Head>
-   <Head X="1" Y="4" Fixture="10">0</Head>
-   <Head X="0" Y="5" Fixture="11">0</Head>
-   <Head X="1" Y="5" Fixture="12">0</Head>
-   <Head X="0" Y="6" Fixture="13">0</Head>
-   <Head X="1" Y="6" Fixture="14">0</Head>
-   <Head X="0" Y="7" Fixture="15">0</Head>
   </FixtureGroup>
   <Function ID="0" Type="Scene" Name="dim 1" Path="dims">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -328,44 +189,20 @@
    <Step Number="0" FadeIn="1000" Hold="0" FadeOut="0">11</Step>
    <Step Number="1" FadeIn="1000" Hold="0" FadeOut="0">13</Step>
   </Function>
-  <Function ID="13" Type="Scene" Name="none">
+  <Function ID="13" Type="Scene" Name="none" Path="dims">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
   </Function>
-  <Function ID="14" Type="Scene" Name="tap tempo">
+  <Function ID="14" Type="Scene" Name="tap tempo" Path="tempo">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="4">0,255</FixtureVal>
   </Function>
-  <Function ID="15" Type="Scene" Name="30s" Path="button timer">
+  <Function ID="15" Type="Scene" Name="double tempo" Path="tempo">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="6">0,255</FixtureVal>
+   <FixtureVal ID="18">0,255</FixtureVal>
   </Function>
-  <Function ID="16" Type="Scene" Name="1m" Path="button timer">
+  <Function ID="16" Type="Scene" Name="half tempo" Path="tempo">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="7">0,255</FixtureVal>
-  </Function>
-  <Function ID="17" Type="Scene" Name="2m" Path="button timer">
-   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="8">0,255</FixtureVal>
-  </Function>
-  <Function ID="18" Type="Scene" Name="button scene a" Path="button scene">
-   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="12">0,255</FixtureVal>
-  </Function>
-  <Function ID="19" Type="Scene" Name="5m" Path="button timer">
-   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="9">0,255</FixtureVal>
-  </Function>
-  <Function ID="20" Type="Scene" Name="10m" Path="button timer">
-   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="10">0,255</FixtureVal>
-  </Function>
-  <Function ID="21" Type="Scene" Name="20m" Path="button timer">
-   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="11">0,255</FixtureVal>
-  </Function>
-  <Function ID="22" Type="Scene" Name="button toggle">
-   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="5">0,255</FixtureVal>
+   <FixtureVal ID="17">0,255</FixtureVal>
   </Function>
   <Function ID="23" Type="Scene" Name="New Scene" Hidden="True">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
@@ -377,27 +214,11 @@
    <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
   </Function>
   <Function ID="25" Type="Collection" Name="New Collection 25"/>
-  <Function ID="26" Type="Scene" Name="button scene b" Path="button scene">
-   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="13">0,255</FixtureVal>
-  </Function>
-  <Function ID="27" Type="Scene" Name="button scene c">
-   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="14">0,255</FixtureVal>
-  </Function>
-  <Function ID="28" Type="Scene" Name="button scene d">
-   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="15">0,255</FixtureVal>
-  </Function>
-  <Function ID="29" Type="Scene" Name="button scene e">
-   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="16">0,255</FixtureVal>
-  </Function>
   <Monitor DisplayMode="1" ShowLabels="0">
-   <Font>Arial,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1</Font>
+   <Font>PibotoLt,12,-1,5,50,0,0,0,0,0</Font>
    <ChannelStyle>0</ChannelStyle>
    <ValueStyle>0</ValueStyle>
-   <Grid Width="5" Height="3" Depth="5" Units="0"/>
+   <Grid Width="4" Height="3" Depth="5" Units="0"/>
    <FxItem ID="0" XPos="2503.6" YPos="136.691"/>
    <FxItem ID="1" XPos="2043.17" YPos="136.691"/>
    <FxItem ID="2" XPos="1568.35" YPos="129.496"/>
@@ -414,7 +235,7 @@
     <Font>Default</Font>
    </Appearance>
    <Button Caption="strobo" ID="14" Icon="">
-    <WindowState Visible="True" X="15" Y="335" Width="175" Height="75"/>
+    <WindowState Visible="True" X="5" Y="335" Width="135" Height="75"/>
     <Appearance>
      <FrameStyle>None</FrameStyle>
      <ForegroundColor>Default</ForegroundColor>
@@ -427,7 +248,7 @@
     <Intensity Adjust="False">100</Intensity>
    </Button>
    <Button Caption="tap tempo" ID="17" Icon="">
-    <WindowState Visible="True" X="5" Y="415" Width="85" Height="70"/>
+    <WindowState Visible="True" X="5" Y="415" Width="280" Height="70"/>
     <Appearance>
      <FrameStyle>None</FrameStyle>
      <ForegroundColor>Default</ForegroundColor>
@@ -436,245 +257,9 @@
      <Font>Default</Font>
     </Appearance>
     <Function ID="14"/>
-    <Action Override="0" ForceLTP="0">Flash</Action>
+    <Action>Flash</Action>
     <Intensity Adjust="False">100</Intensity>
    </Button>
-   <Button Caption="toggle button" ID="0" Icon="">
-    <WindowState Visible="True" X="5" Y="720" Width="195" Height="85"/>
-    <Appearance>
-     <FrameStyle>None</FrameStyle>
-     <ForegroundColor>Default</ForegroundColor>
-     <BackgroundColor>Default</BackgroundColor>
-     <BackgroundImage>None</BackgroundImage>
-     <Font>Default</Font>
-    </Appearance>
-    <Function ID="22"/>
-    <Action>Toggle</Action>
-    <Intensity Adjust="False">100</Intensity>
-   </Button>
-   <SoloFrame Caption="" ID="23">
-    <Appearance>
-     <FrameStyle>Sunken</FrameStyle>
-     <ForegroundColor>Default</ForegroundColor>
-     <BackgroundColor>Default</BackgroundColor>
-     <BackgroundImage>None</BackgroundImage>
-     <Font>Default</Font>
-    </Appearance>
-    <WindowState Visible="True" X="15" Y="845" Width="70" Height="320"/>
-    <AllowChildren>False</AllowChildren>
-    <AllowResize>False</AllowResize>
-    <ShowHeader>False</ShowHeader>
-    <ShowEnableButton>True</ShowEnableButton>
-    <Mixing>False</Mixing>
-    <Collapsed>False</Collapsed>
-    <Disabled>False</Disabled>
-    <Button Caption="30s" ID="24" Icon="">
-     <WindowState Visible="True" X="10" Y="10" Width="50" Height="50"/>
-     <Appearance>
-      <FrameStyle>None</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <Function ID="15"/>
-     <Action>Toggle</Action>
-     <Intensity Adjust="False">100</Intensity>
-    </Button>
-    <Button Caption="1m" ID="25" Icon="">
-     <WindowState Visible="True" X="10" Y="60" Width="50" Height="50"/>
-     <Appearance>
-      <FrameStyle>None</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <Function ID="16"/>
-     <Action>Toggle</Action>
-     <Intensity Adjust="False">100</Intensity>
-    </Button>
-    <Button Caption="2m" ID="26" Icon="">
-     <WindowState Visible="True" X="10" Y="110" Width="50" Height="50"/>
-     <Appearance>
-      <FrameStyle>None</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <Function ID="17"/>
-     <Action>Toggle</Action>
-     <Intensity Adjust="False">100</Intensity>
-    </Button>
-    <Button Caption="5m" ID="27" Icon="">
-     <WindowState Visible="True" X="10" Y="160" Width="50" Height="50"/>
-     <Appearance>
-      <FrameStyle>None</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <Function ID="19"/>
-     <Action>Toggle</Action>
-     <Intensity Adjust="False">100</Intensity>
-    </Button>
-    <Button Caption="10m" ID="28" Icon="">
-     <WindowState Visible="True" X="10" Y="210" Width="50" Height="50"/>
-     <Appearance>
-      <FrameStyle>None</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <Function ID="20"/>
-     <Action>Toggle</Action>
-     <Intensity Adjust="False">100</Intensity>
-    </Button>
-    <Button Caption="20m" ID="29" Icon="">
-     <WindowState Visible="True" X="10" Y="260" Width="50" Height="50"/>
-     <Appearance>
-      <FrameStyle>None</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <Function ID="21"/>
-     <Action>Toggle</Action>
-     <Intensity Adjust="False">100</Intensity>
-    </Button>
-   </SoloFrame>
-   <Button Caption="half tempo" ID="30" Icon="">
-    <WindowState Visible="True" X="90" Y="415" Width="90" Height="70"/>
-    <Appearance>
-     <FrameStyle>None</FrameStyle>
-     <ForegroundColor>Default</ForegroundColor>
-     <BackgroundColor>Default</BackgroundColor>
-     <BackgroundImage>None</BackgroundImage>
-     <Font>Default</Font>
-    </Appearance>
-    <Function ID="4294967295"/>
-    <Action>Toggle</Action>
-    <Intensity Adjust="False">100</Intensity>
-   </Button>
-   <Button Caption="double tempo" ID="31" Icon="">
-    <WindowState Visible="True" X="180" Y="415" Width="90" Height="70"/>
-    <Appearance>
-     <FrameStyle>None</FrameStyle>
-     <ForegroundColor>Default</ForegroundColor>
-     <BackgroundColor>Default</BackgroundColor>
-     <BackgroundImage>None</BackgroundImage>
-     <Font>Default</Font>
-    </Appearance>
-    <Function ID="4294967295"/>
-    <Action>Toggle</Action>
-    <Intensity Adjust="False">100</Intensity>
-   </Button>
-   <Label Caption="select button scene" ID="39">
-    <WindowState Visible="True" X="105" Y="810" Width="100" Height="30"/>
-    <Appearance>
-     <FrameStyle>None</FrameStyle>
-     <ForegroundColor>Default</ForegroundColor>
-     <BackgroundColor>Default</BackgroundColor>
-     <BackgroundImage>None</BackgroundImage>
-     <Font>Default</Font>
-    </Appearance>
-   </Label>
-   <Label Caption="select button time" ID="40">
-    <WindowState Visible="True" X="0" Y="810" Width="100" Height="30"/>
-    <Appearance>
-     <FrameStyle>None</FrameStyle>
-     <ForegroundColor>Default</ForegroundColor>
-     <BackgroundColor>Default</BackgroundColor>
-     <BackgroundImage>None</BackgroundImage>
-     <Font>Default</Font>
-    </Appearance>
-   </Label>
-   <SoloFrame Caption="" ID="1">
-    <Appearance>
-     <FrameStyle>Sunken</FrameStyle>
-     <ForegroundColor>Default</ForegroundColor>
-     <BackgroundColor>Default</BackgroundColor>
-     <BackgroundImage>None</BackgroundImage>
-     <Font>Default</Font>
-    </Appearance>
-    <WindowState Visible="True" X="120" Y="850" Width="70" Height="270"/>
-    <AllowChildren>False</AllowChildren>
-    <AllowResize>False</AllowResize>
-    <ShowHeader>False</ShowHeader>
-    <ShowEnableButton>True</ShowEnableButton>
-    <Mixing>False</Mixing>
-    <Collapsed>False</Collapsed>
-    <Disabled>False</Disabled>
-    <Button Caption="button scene a" ID="2" Icon="">
-     <WindowState Visible="True" X="10" Y="10" Width="50" Height="50"/>
-     <Appearance>
-      <FrameStyle>None</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <Function ID="18"/>
-     <Action>Toggle</Action>
-     <Intensity Adjust="False">100</Intensity>
-    </Button>
-    <Button Caption="button scene b" ID="3" Icon="">
-     <WindowState Visible="True" X="10" Y="60" Width="50" Height="50"/>
-     <Appearance>
-      <FrameStyle>None</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <Function ID="26"/>
-     <Action>Toggle</Action>
-     <Intensity Adjust="False">100</Intensity>
-    </Button>
-    <Button Caption="button scene c" ID="4" Icon="">
-     <WindowState Visible="True" X="10" Y="110" Width="50" Height="50"/>
-     <Appearance>
-      <FrameStyle>None</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <Function ID="27"/>
-     <Action>Toggle</Action>
-     <Intensity Adjust="False">100</Intensity>
-    </Button>
-    <Button Caption="button scene d" ID="5" Icon="">
-     <WindowState Visible="True" X="10" Y="160" Width="50" Height="50"/>
-     <Appearance>
-      <FrameStyle>None</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <Function ID="28"/>
-     <Action>Toggle</Action>
-     <Intensity Adjust="False">100</Intensity>
-    </Button>
-    <Button Caption="button scene e" ID="6" Icon="">
-     <WindowState Visible="True" X="10" Y="210" Width="50" Height="50"/>
-     <Appearance>
-      <FrameStyle>None</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <Function ID="29"/>
-     <Action>Toggle</Action>
-     <Intensity Adjust="False">100</Intensity>
-    </Button>
-   </SoloFrame>
    <SoloFrame Caption="" ID="7">
     <Appearance>
      <FrameStyle>Sunken</FrameStyle>
@@ -756,7 +341,7 @@
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
     </Button>
-    <Slider Caption="Slider 15" ID="15" WidgetStyle="Slider" InvertedAppearance="false">
+    <Slider Caption="master" ID="15" WidgetStyle="Slider" InvertedAppearance="false">
      <WindowState Visible="True" X="200" Y="40" Width="80" Height="270"/>
      <Appearance>
       <FrameStyle>Sunken</FrameStyle>
@@ -766,7 +351,7 @@
       <Font>Default</Font>
      </Appearance>
      <SliderMode ValueDisplayStyle="Exact" ClickAndGoType="None">Submaster</SliderMode>
-     <Level LowLimit="0" HighLimit="255" Value="255"/>
+     <Level LowLimit="0" HighLimit="255" Value="19"/>
      <Playback>
       <Function>4294967295</Function>
      </Playback>
@@ -780,12 +365,12 @@
      <BackgroundImage>None</BackgroundImage>
      <Font>Default</Font>
     </Appearance>
-    <WindowState Visible="True" X="20" Y="1520" Width="340" Height="275"/>
+    <WindowState Visible="True" X="15" Y="590" Width="340" Height="275"/>
     <AllowChildren>True</AllowChildren>
     <AllowResize>True</AllowResize>
     <ShowHeader>True</ShowHeader>
-    <ShowEnableButton>True</ShowEnableButton>
-    <Collapsed>True</Collapsed>
+    <ShowEnableButton>False</ShowEnableButton>
+    <Collapsed>False</Collapsed>
     <Disabled>False</Disabled>
     <Button Caption="scene a" ID="41" Icon="">
      <WindowState Visible="True" X="5" Y="40" Width="70" Height="70"/>
@@ -796,9 +381,10 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <Function ID="4294967295"/>
+     <Function ID="5"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
+     <Input Universe="2" Channel="2179"/>
     </Button>
     <Button Caption="scene b" ID="42" Icon="">
      <WindowState Visible="True" X="80" Y="40" Width="70" Height="70"/>
@@ -809,9 +395,10 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <Function ID="4294967295"/>
+     <Function ID="9"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
+     <Input Universe="2" Channel="14872"/>
     </Button>
     <Button Caption="scene c" ID="43" Icon="">
      <WindowState Visible="True" X="5" Y="115" Width="70" Height="70"/>
@@ -822,9 +409,10 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <Function ID="4294967295"/>
+     <Function ID="5"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
+     <Input Universe="2" Channel="11153"/>
     </Button>
     <Button Caption="scene d" ID="44" Icon="">
      <WindowState Visible="True" X="80" Y="115" Width="70" Height="70"/>
@@ -835,9 +423,10 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <Function ID="4294967295"/>
+     <Function ID="8"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
+     <Input Universe="2" Channel="24366"/>
     </Button>
     <Button Caption="scene e" ID="45" Icon="">
      <WindowState Visible="True" X="5" Y="190" Width="70" Height="70"/>
@@ -848,31 +437,82 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <Function ID="4294967295"/>
+     <Function ID="10"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
+     <Input Universe="2" Channel="20135"/>
     </Button>
-    <SpeedDial Caption="Duration" ID="16">
-     <WindowState Visible="True" X="165" Y="45" Width="160" Height="65"/>
+    <Slider Caption="brightness" ID="6" WidgetStyle="Slider" InvertedAppearance="false">
+     <WindowState Visible="True" X="220" Y="45" Width="105" Height="215"/>
      <Appearance>
       <FrameStyle>Sunken</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>4279703319</BackgroundColor>
+      <BackgroundColor>Default</BackgroundColor>
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <Visibility>120</Visibility>
-     <AbsoluteValue Minimum="0" Maximum="10000"/>
-     <Tap>
-      <Input Universe="1" Channel="0"/>
-     </Tap>
-     <Time>717</Time>
-    </SpeedDial>
+     <SliderMode ValueDisplayStyle="Exact" ClickAndGoType="None">Submaster</SliderMode>
+     <Level LowLimit="0" HighLimit="255" Value="118"/>
+     <Playback>
+      <Function>4294967295</Function>
+     </Playback>
+    </Slider>
    </Frame>
+   <SpeedDial Caption="Duration" ID="0">
+    <WindowState Visible="True" X="5" Y="490" Width="285" Height="70"/>
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <Visibility>96</Visibility>
+    <AbsoluteValue Minimum="0" Maximum="1000">
+     <Input Universe="1" Channel="2"/>
+    </AbsoluteValue>
+    <Tap>
+     <Input Universe="1" Channel="0"/>
+    </Tap>
+    <Mult>
+     <Input Universe="1" Channel="2"/>
+    </Mult>
+    <Time>878</Time>
+   </SpeedDial>
+   <Slider Caption="speed 1s" ID="1" WidgetStyle="Slider" InvertedAppearance="false">
+    <WindowState Visible="True" X="310" Y="255" Width="75" Height="300"/>
+    <Appearance>
+     <FrameStyle>Sunken</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <SliderMode ValueDisplayStyle="Percentage" ClickAndGoType="None" Monitor="false">Level</SliderMode>
+    <Level LowLimit="0" HighLimit="255" Value="224">
+     <Channel Fixture="18">0</Channel>
+    </Level>
+    <Playback>
+     <Function>4294967295</Function>
+    </Playback>
+   </Slider>
+   <Button Caption="Nebel" ID="2" Icon="">
+    <WindowState Visible="True" X="145" Y="335" Width="140" Height="75"/>
+    <Appearance>
+     <FrameStyle>None</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <Function ID="4294967295"/>
+    <Action>Toggle</Action>
+    <Intensity Adjust="False">100</Intensity>
+   </Button>
   </Frame>
   <Properties>
-   <Size Width="400" Height="1800"/>
-   <GrandMaster Visible="1" ChannelMode="Intensity" ValueMode="Reduce" SliderMode="Normal"/>
+   <Size Width="400" Height="900"/>
+   <GrandMaster ChannelMode="Intensity" ValueMode="Reduce" SliderMode="Normal"/>
   </Properties>
  </VirtualConsole>
  <SimpleDesk>
