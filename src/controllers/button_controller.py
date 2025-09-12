@@ -6,75 +6,49 @@ Handles GPIO button input, LED control, and OSC messaging
 import time
 import threading
 from pythonosc.udp_client import SimpleUDPClient
+from .led_controller import LEDController
 
 class ButtonController:
-    def __init__(self, gpio, button_pin, led_pins, osc_client, osc_manager):
+    def __init__(self, gpio, button_pin, osc_client, osc_manager, led_controller):
         self.gpio = gpio
         self.button_pin = button_pin
-        self.led_pins = led_pins  # Dictionary of LED names to pins
         self.osc_client = osc_client
         self.osc_manager = osc_manager
         
         # State
         self.button_pressed = False
         self.button_enabled = True
+        self.is_button_blocked = False
         
         # Setup GPIO
         self.gpio.setup(self.button_pin, self.gpio.IN, pull_up_down=self.gpio.PUD_UP)
+
+        # Setup LEDs using LEDController
+        self.led_controller = led_controller
         
-        # Setup LEDs
-        for led_name, led_pin in self.led_pins.items():
-            self.gpio.setup(led_pin, self.gpio.OUT)
-            print(f"LED '{led_name}' on pin {led_pin}")
-        
-        # Start with all LEDs off
-        self.turn_all_leds(False)
-    
-    def turn_led(self, led_name, on):
-        """Turn specific LED on or off"""
-        if led_name in self.led_pins:
-            led_pin = self.led_pins[led_name]
-            self.gpio.output(led_pin, self.gpio.HIGH if on else self.gpio.LOW)
-            print(f"LED '{led_name}' {'ON' if on else 'OFF'}")
-        else:
-            print(f"Unknown LED: {led_name}")
-    
-    def turn_all_leds(self, on):
-        """Turn all LEDs on or off"""
-        for led_name in self.led_pins:
-            self.turn_led(led_name, on)
-    
-    def toggle_led(self, led_name):
-        """Toggle specific LED state"""
-        if led_name in self.led_pins:
-            led_pin = self.led_pins[led_name]
-            current_state = self.gpio.input(led_pin)
-            new_state = not bool(current_state)
-            self.turn_led(led_name, new_state)
-        else:
-            print(f"Unknown LED: {led_name}")
     
     def set_button_enabled(self, enabled):
         """Enable or disable button functionality"""
         self.button_enabled = enabled
         print(f"Button functionality {'ENABLED' if enabled else 'DISABLED'}")
+        
+        # Set red LED state based on button enabled status
+        if enabled:
+            self.led_controller.switch_red_led(False)  # Red LED off when enabled
+            self.led_controller.switch_green_led(True)  # Green LED on when enabled
+        else:
+            self.led_controller.switch_red_led(True)   # Red LED on when disabled
+            self.led_controller.switch_green_led(False) # Green LED off when disabled
     
     def process_button(self):
         """Process button input - call this in main loop"""
-        if not self.button_enabled:
-            # Reset button state if disabled
-            if self.button_pressed:
-                self.button_pressed = False
-                print("Button functionality disabled - resetting state")
-            return
-        
         current_state = self.gpio.input(self.button_pin)
         
         # Detect button press (transition from HIGH to LOW)
         if current_state == self.gpio.LOW and not self.button_pressed:
             self.button_pressed = True
             self._handle_button_press()
-        
+    
         # Detect button release (transition from LOW to HIGH)
         elif current_state == self.gpio.HIGH and self.button_pressed:
             self.button_pressed = False
@@ -83,6 +57,11 @@ class ButtonController:
     def _handle_button_press(self):
         """Handle button press sequence"""
         print("Button pressed!")
+
+        if not self.button_enabled or self.is_button_blocked:
+            self.led_controller.blink_red_led(blink_rate=0.2, times=3)
+            print("Button functionality disabled or blocked - showing red blink feedback")
+            return
         
         # Get current OSC path from manager
         osc_path = self.osc_manager.get_button_path()
@@ -91,32 +70,42 @@ class ButtonController:
         self.osc_client.send_message(osc_path, 1)
         print(f"Sent OSC: {osc_path} = 1")
         
-        # Turn off all LEDs
-        self.turn_all_leds(False)
-        
         # Start effect duration timer in a separate thread
         effect_thread = threading.Thread(target=self._run_effect_duration, args=(osc_path,), daemon=True)
         effect_thread.start()
         
-        # Handle block delay in main thread
+        # Start block timer in a separate thread
         block_delay = self.osc_manager.current_delay
         if block_delay > 0:
+            self.is_button_blocked = True
             print(f"Blocking button for {block_delay} seconds...")
-            time.sleep(block_delay)
+            block_thread = threading.Thread(target=self._run_block_timer, args=(block_delay,), daemon=True)
+            block_thread.start()
         else:
             print("No block delay - immediate release")
+    
+    def _run_block_timer(self, block_delay):
+        """Run block timer in separate thread"""
+        # During block: green off, red on (blocked state)
+        self.led_controller.switch_green_led(False)
+        self.led_controller.switch_red_led(True)
+        time.sleep(block_delay)
+        self.is_button_blocked = False
         
-        # Turn all LEDs back on when block is released
-        self.turn_all_leds(True)
-        print("All LEDs turned on again - button unblocked.")
+        # After block: restore to enabled state (green on, red off)
+        if self.button_enabled:
+            self.led_controller.switch_green_led(True)
+            self.led_controller.switch_red_led(False)
+        print("Button unblocked - LEDs restored to enabled state.")
     
     def _run_effect_duration(self, osc_path):
         """Run effect duration timer in separate thread"""
         osc_off_delay = self.osc_manager.current_osc_off_delay
-        
+        self.led_controller.blink_green_led(duration=self.osc_manager.current_osc_off_delay, blink_rate=0.4)
         if osc_off_delay > 0:
             print(f"Effect duration: {osc_off_delay} seconds...")
             time.sleep(osc_off_delay)
+
         else:
             print("No effect duration - ending immediately")
             
@@ -125,5 +114,5 @@ class ButtonController:
     
     def cleanup(self):
         """Clean up resources"""
-        self.turn_all_leds(False)
+        self.led_controller.switch_all_leds(False)
         print("Button controller cleaned up")
