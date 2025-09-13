@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Workspace>
-<Workspace xmlns="http://www.qlcplus.org/Workspace" CurrentWindow="VirtualConsole">
+<Workspace xmlns="http://www.qlcplus.org/Workspace" CurrentWindow="FunctionManager">
  <Creator>
   <Name>Q Light Controller Plus</Name>
-  <Version>4.12.6</Version>
-  <Author></Author>
+  <Version>4.14.3</Version>
+  <Author>Moriz Krämer</Author>
  </Creator>
  <Engine>
   <InputOutputMap>
+   <BeatGenerator BeatType="Disabled" BPM="0"/>
    <Universe Name="Universe 1" ID="0"/>
    <Universe Name="Universe 2" ID="1">
     <Input Plugin="Loopback" UID="Loopback 2" Line="1"/>
@@ -16,7 +17,7 @@
     </Output>
    </Universe>
    <Universe Name="Universe 3" ID="2">
-    <Input Plugin="OSC" UID="127.0.0.1" Line="1">
+    <Input Plugin="OSC" UID="127.0.0.1" Line="0">
      <PluginParameters inputPort="7700"/>
     </Input>
    </Universe>
@@ -74,20 +75,20 @@
   </Fixture>
   <Fixture>
    <Manufacturer>Generic</Manufacturer>
-   <Model>Generic</Model>
-   <Mode>1 Channel</Mode>
-   <ID>17</ID>
-   <Name>half tempo</Name>
-   <Universe>1</Universe>
-   <Address>1</Address>
-   <Channels>1</Channels>
+   <Model>Generic Smoke</Model>
+   <Mode>Normal</Mode>
+   <ID>5</ID>
+   <Name>smoke</Name>
+   <Universe>0</Universe>
+   <Address>4</Address>
+   <Channels>2</Channels>
   </Fixture>
   <Fixture>
    <Manufacturer>Generic</Manufacturer>
    <Model>Generic</Model>
    <Mode>1 Channel</Mode>
    <ID>18</ID>
-   <Name>double tempo</Name>
+   <Name>tempo fader</Name>
    <Universe>1</Universe>
    <Address>2</Address>
    <Channels>1</Channels>
@@ -116,8 +117,8 @@
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="3">0,255</FixtureVal>
   </Function>
-  <Function ID="4" Type="Chaser" Name="chase fade">
-   <Speed FadeIn="500" FadeOut="500" Duration="478"/>
+  <Function ID="4" Type="Chaser" Name="chase fade" Path="500ms">
+   <Speed FadeIn="250" FadeOut="250" Duration="500"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Common" FadeOut="Common" Duration="Common"/>
@@ -126,8 +127,8 @@
    <Step Number="2" FadeIn="0" Hold="0" FadeOut="0">1</Step>
    <Step Number="3" FadeIn="0" Hold="0" FadeOut="0">3</Step>
   </Function>
-  <Function ID="5" Type="Chaser" Name="2x2 fade">
-   <Speed FadeIn="500" FadeOut="0" Duration="478"/>
+  <Function ID="5" Type="Chaser" Name="2x2 fade" Path="500ms">
+   <Speed FadeIn="250" FadeOut="250" Duration="500"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
    <SpeedModes FadeIn="Common" FadeOut="Common" Duration="Common"/>
@@ -144,8 +145,8 @@
    <FixtureVal ID="1">0,255</FixtureVal>
    <FixtureVal ID="3">0,255</FixtureVal>
   </Function>
-  <Function ID="8" Type="Chaser" Name="random fade">
-   <Speed FadeIn="500" FadeOut="500" Duration="478"/>
+  <Function ID="8" Type="Chaser" Name="random fade" Path="500ms">
+   <Speed FadeIn="250" FadeOut="500" Duration="500"/>
    <Direction>Forward</Direction>
    <RunOrder>Random</RunOrder>
    <SpeedModes FadeIn="Common" FadeOut="Common" Duration="Common"/>
@@ -154,7 +155,7 @@
    <Step Number="2" FadeIn="0" Hold="0" FadeOut="0">2</Step>
    <Step Number="3" FadeIn="0" Hold="0" FadeOut="0">3</Step>
   </Function>
-  <Function ID="9" Type="Chaser" Name="strobo">
+  <Function ID="9" Type="Chaser" Name="strobo dims">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
@@ -164,8 +165,8 @@
    <Step Number="2" FadeIn="0" Hold="0" FadeOut="0">1</Step>
    <Step Number="3" FadeIn="0" Hold="0" FadeOut="0">3</Step>
   </Function>
-  <Function ID="10" Type="Chaser" Name="way to">
-   <Speed FadeIn="1500" FadeOut="1500" Duration="1500"/>
+  <Function ID="10" Type="Chaser" Name="way to" Path="3s">
+   <Speed FadeIn="3000" FadeOut="3000" Duration="3000"/>
    <Direction>Forward</Direction>
    <RunOrder>PingPong</RunOrder>
    <SpeedModes FadeIn="Common" FadeOut="Common" Duration="Common"/>
@@ -174,14 +175,14 @@
    <Step Number="2" FadeIn="0" Hold="0" FadeOut="0">1</Step>
    <Step Number="3" FadeIn="0" Hold="0" FadeOut="0">3</Step>
   </Function>
-  <Function ID="11" Type="Scene" Name="all" Path="dims">
+  <Function ID="11" Type="Scene" Name="all">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="0">0,255</FixtureVal>
    <FixtureVal ID="1">0,255</FixtureVal>
    <FixtureVal ID="2">0,255</FixtureVal>
    <FixtureVal ID="3">0,255</FixtureVal>
   </Function>
-  <Function ID="12" Type="Chaser" Name="all fade">
+  <Function ID="12" Type="Chaser" Name="all fade" Path="3s">
    <Speed FadeIn="3000" FadeOut="3000" Duration="3000"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
@@ -189,40 +190,181 @@
    <Step Number="0" FadeIn="1000" Hold="0" FadeOut="0">11</Step>
    <Step Number="1" FadeIn="1000" Hold="0" FadeOut="0">13</Step>
   </Function>
-  <Function ID="13" Type="Scene" Name="none" Path="dims">
+  <Function ID="13" Type="Scene" Name="none">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
   </Function>
   <Function ID="14" Type="Scene" Name="tap tempo" Path="tempo">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="4">0,255</FixtureVal>
   </Function>
-  <Function ID="15" Type="Scene" Name="double tempo" Path="tempo">
+  <Function ID="15" Type="Scene" Name="tempo fader" Path="tempo">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
    <FixtureVal ID="18">0,255</FixtureVal>
   </Function>
   <Function ID="16" Type="Scene" Name="half tempo" Path="tempo">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
-   <FixtureVal ID="17">0,255</FixtureVal>
   </Function>
-  <Function ID="23" Type="Scene" Name="New Scene" Hidden="True">
+  <Function ID="17" Type="Scene" Name="smoke">
    <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="5">0,255,1,255</FixtureVal>
   </Function>
-  <Function ID="24" Type="Sequence" Name="New Sequence 24" BoundScene="23">
-   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+  <Function ID="19" Type="Chaser" Name="an aus" Path="500ms">
+   <Speed FadeIn="250" FadeOut="250" Duration="500"/>
    <Direction>Forward</Direction>
    <RunOrder>Loop</RunOrder>
-   <SpeedModes FadeIn="Default" FadeOut="Default" Duration="Common"/>
+   <SpeedModes FadeIn="Common" FadeOut="Common" Duration="Common"/>
+   <Step Number="0" FadeIn="100" Hold="0" FadeOut="0">11</Step>
+   <Step Number="1" FadeIn="100" Hold="500" FadeOut="0">13</Step>
   </Function>
-  <Function ID="25" Type="Collection" Name="New Collection 25"/>
+  <Function ID="20" Type="Chaser" Name="Seq1" Path="seq">
+   <Speed FadeIn="0" FadeOut="0" Duration="1750"/>
+   <Direction>Forward</Direction>
+   <RunOrder>PingPong</RunOrder>
+   <SpeedModes FadeIn="PerStep" FadeOut="Common" Duration="PerStep"/>
+   <Step Number="0" FadeIn="250" Hold="1500" FadeOut="0">11</Step>
+   <Step Number="1" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="2" FadeIn="250" Hold="0" FadeOut="0">0</Step>
+   <Step Number="3" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="4" FadeIn="250" Hold="250" FadeOut="0">2</Step>
+   <Step Number="5" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="6" FadeIn="250" Hold="500" FadeOut="0">11</Step>
+   <Step Number="7" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="8" FadeIn="250" Hold="500" FadeOut="0">2</Step>
+   <Step Number="9" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="10" FadeIn="250" Hold="500" FadeOut="0">1</Step>
+   <Step Number="11" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="12" FadeIn="250" Hold="500" FadeOut="0">6</Step>
+   <Step Number="13" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="14" FadeIn="250" Hold="250" FadeOut="0">0</Step>
+   <Step Number="15" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="16" FadeIn="250" Hold="500" FadeOut="0">3</Step>
+   <Step Number="17" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="18" FadeIn="250" Hold="250" FadeOut="0">0</Step>
+   <Step Number="19" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="20" FadeIn="250" Hold="500" FadeOut="0">7</Step>
+   <Step Number="21" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+  </Function>
+  <Function ID="21" Type="Collection" Name="All Strobe">
+   <Step Number="0">9</Step>
+  </Function>
+  <Function ID="22" Type="Collection" Name="strobe nebel">
+   <Step Number="0">21</Step>
+   <Step Number="1">17</Step>
+  </Function>
+  <Function ID="23" Type="Chaser" Name="Seq2" Path="seq">
+   <Speed FadeIn="0" FadeOut="2000" Duration="4000"/>
+   <Direction>Forward</Direction>
+   <RunOrder>PingPong</RunOrder>
+   <SpeedModes FadeIn="PerStep" FadeOut="PerStep" Duration="PerStep"/>
+   <Step Number="0" FadeIn="500" Hold="2000" FadeOut="2000">11</Step>
+   <Step Number="1" FadeIn="0" Hold="1000" FadeOut="0">13</Step>
+   <Step Number="2" FadeIn="250" Hold="250" FadeOut="500">0</Step>
+   <Step Number="3" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="4" FadeIn="250" Hold="250" FadeOut="500">3</Step>
+   <Step Number="5" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="6" FadeIn="250" Hold="250" FadeOut="500">0</Step>
+   <Step Number="7" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="8" FadeIn="250" Hold="250" FadeOut="500">2</Step>
+   <Step Number="9" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="10" FadeIn="250" Hold="250" FadeOut="500">11</Step>
+   <Step Number="11" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="12" FadeIn="250" Hold="250" FadeOut="500">1</Step>
+   <Step Number="13" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="14" FadeIn="250" Hold="250" FadeOut="500">6</Step>
+   <Step Number="15" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="16" FadeIn="250" Hold="250" FadeOut="500">0</Step>
+   <Step Number="17" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="18" FadeIn="250" Hold="250" FadeOut="500">7</Step>
+   <Step Number="19" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="20" FadeIn="250" Hold="250" FadeOut="500">2</Step>
+   <Step Number="21" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+  </Function>
+  <Function ID="24" Type="Chaser" Name="Seq3" Path="seq">
+   <Speed FadeIn="0" FadeOut="2000" Duration="4000"/>
+   <Direction>Forward</Direction>
+   <RunOrder>PingPong</RunOrder>
+   <SpeedModes FadeIn="PerStep" FadeOut="PerStep" Duration="PerStep"/>
+   <Step Number="0" FadeIn="100" Hold="2000" FadeOut="0">11</Step>
+   <Step Number="1" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="2" FadeIn="250" Hold="250" FadeOut="500">0</Step>
+   <Step Number="3" FadeIn="0" Hold="1000" FadeOut="0">13</Step>
+   <Step Number="4" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="5" FadeIn="250" Hold="250" FadeOut="500">6</Step>
+   <Step Number="6" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="7" FadeIn="250" Hold="250" FadeOut="500">11</Step>
+   <Step Number="8" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="9" FadeIn="250" Hold="250" FadeOut="500">2</Step>
+   <Step Number="10" FadeIn="250" Hold="250" FadeOut="500">1</Step>
+   <Step Number="11" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="12" FadeIn="250" Hold="250" FadeOut="500">0</Step>
+   <Step Number="13" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="14" FadeIn="250" Hold="250" FadeOut="500">0</Step>
+   <Step Number="15" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="16" FadeIn="250" Hold="250" FadeOut="500">3</Step>
+   <Step Number="17" FadeIn="250" Hold="250" FadeOut="500">7</Step>
+   <Step Number="18" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="19" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+   <Step Number="20" FadeIn="250" Hold="250" FadeOut="500">2</Step>
+   <Step Number="21" FadeIn="0" Hold="500" FadeOut="0">13</Step>
+  </Function>
+  <Function ID="25" Type="Chaser" Name="slow seq" Path="3s">
+   <Speed FadeIn="500" FadeOut="500" Duration="0"/>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <SpeedModes FadeIn="Common" FadeOut="Common" Duration="PerStep"/>
+   <Step Number="0" FadeIn="500" Hold="2500" FadeOut="0">6</Step>
+   <Step Number="1" FadeIn="0" Hold="3000" FadeOut="0">13</Step>
+   <Step Number="2" FadeIn="0" Hold="2500" FadeOut="0">0</Step>
+   <Step Number="3" FadeIn="500" Hold="2500" FadeOut="500">6</Step>
+   <Step Number="4" FadeIn="0" Hold="3000" FadeOut="0">13</Step>
+   <Step Number="5" FadeIn="0" Hold="2500" FadeOut="0">2</Step>
+   <Step Number="6" FadeIn="0" Hold="2500" FadeOut="0">7</Step>
+   <Step Number="7" FadeIn="0" Hold="3000" FadeOut="0">13</Step>
+   <Step Number="8" FadeIn="0" Hold="2500" FadeOut="0">1</Step>
+   <Step Number="9" FadeIn="500" Hold="2500" FadeOut="500">6</Step>
+   <Step Number="10" FadeIn="0" Hold="3000" FadeOut="0">13</Step>
+   <Step Number="11" FadeIn="0" Hold="2500" FadeOut="0">3</Step>
+   <Step Number="12" FadeIn="500" Hold="2500" FadeOut="500">7</Step>
+   <Step Number="13" FadeIn="0" Hold="3000" FadeOut="0">13</Step>
+  </Function>
+  <Function ID="26" Type="Scene" Name="1 2 3">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">0,255</FixtureVal>
+   <FixtureVal ID="1">0,255</FixtureVal>
+   <FixtureVal ID="2">0,255</FixtureVal>
+  </Function>
+  <Function ID="27" Type="Scene" Name="2 3 4" Path="dims">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="1">0,255</FixtureVal>
+   <FixtureVal ID="2">0,255</FixtureVal>
+   <FixtureVal ID="3">0,255</FixtureVal>
+  </Function>
+  <Function ID="28" Type="Chaser" Name="grad">
+   <Speed FadeIn="1000" FadeOut="0" Duration="3000"/>
+   <Direction>Forward</Direction>
+   <RunOrder>Loop</RunOrder>
+   <SpeedModes FadeIn="Common" FadeOut="Default" Duration="Common"/>
+   <Step Number="0" FadeIn="0" Hold="0" FadeOut="0">0</Step>
+   <Step Number="1" FadeIn="0" Hold="0" FadeOut="0">6</Step>
+   <Step Number="2" FadeIn="1000" Hold="2000" FadeOut="0">26</Step>
+   <Step Number="3" FadeIn="1000" Hold="2000" FadeOut="0">11</Step>
+   <Step Number="4" FadeIn="1000" Hold="2000" FadeOut="0">13</Step>
+  </Function>
+  <Function ID="29" Type="Scene" Name="1 2 3" Path="dims">
+   <Speed FadeIn="0" FadeOut="0" Duration="0"/>
+   <FixtureVal ID="0">0,255</FixtureVal>
+   <FixtureVal ID="1">0,255</FixtureVal>
+   <FixtureVal ID="2">0,255</FixtureVal>
+  </Function>
   <Monitor DisplayMode="1" ShowLabels="0">
-   <Font>PibotoLt,12,-1,5,50,0,0,0,0,0</Font>
+   <Font>PibotoLt,12,-1,5,400,0,0,0,0,0,0,0,0,0,0,1</Font>
    <ChannelStyle>0</ChannelStyle>
    <ValueStyle>0</ValueStyle>
-   <Grid Width="4" Height="3" Depth="5" Units="0"/>
-   <FxItem ID="0" XPos="2503.6" YPos="136.691"/>
-   <FxItem ID="1" XPos="2043.17" YPos="136.691"/>
-   <FxItem ID="2" XPos="1568.35" YPos="129.496"/>
-   <FxItem ID="3" XPos="1056.74" YPos="113.475"/>
+   <Grid Width="2" Height="3" Depth="2" Units="0"/>
+   <FxItem ID="0" XPos="1371.73" YPos="1338.16"/>
+   <FxItem ID="1" XPos="328.884" YPos="1396.76"/>
+   <FxItem ID="2" XPos="1418.17" YPos="367.591"/>
+   <FxItem ID="3" XPos="338.791" YPos="373.548"/>
   </Monitor>
  </Engine>
  <VirtualConsole>
@@ -234,8 +376,8 @@
     <BackgroundImage>None</BackgroundImage>
     <Font>Default</Font>
    </Appearance>
-   <Button Caption="strobo" ID="14" Icon="">
-    <WindowState Visible="True" X="5" Y="335" Width="135" Height="75"/>
+   <Button Caption="dim strobo" ID="14" Icon="">
+    <WindowState Visible="False" X="300" Y="115" Width="95" Height="65"/>
     <Appearance>
      <FrameStyle>None</FrameStyle>
      <ForegroundColor>Default</ForegroundColor>
@@ -248,7 +390,7 @@
     <Intensity Adjust="False">100</Intensity>
    </Button>
    <Button Caption="tap tempo" ID="17" Icon="">
-    <WindowState Visible="True" X="5" Y="415" Width="280" Height="70"/>
+    <WindowState Visible="False" X="10" Y="530" Width="95" Height="140"/>
     <Appearance>
      <FrameStyle>None</FrameStyle>
      <ForegroundColor>Default</ForegroundColor>
@@ -257,7 +399,7 @@
      <Font>Default</Font>
     </Appearance>
     <Function ID="14"/>
-    <Action>Flash</Action>
+    <Action Override="0" ForceLTP="0">Flash</Action>
     <Intensity Adjust="False">100</Intensity>
    </Button>
    <SoloFrame Caption="" ID="7">
@@ -268,7 +410,7 @@
      <BackgroundImage>None</BackgroundImage>
      <Font>Default</Font>
     </Appearance>
-    <WindowState Visible="True" X="10" Y="0" Width="285" Height="330"/>
+    <WindowState Visible="False" X="10" Y="5" Width="290" Height="515"/>
     <AllowChildren>True</AllowChildren>
     <AllowResize>True</AllowResize>
     <ShowHeader>True</ShowHeader>
@@ -277,7 +419,7 @@
     <Collapsed>False</Collapsed>
     <Disabled>False</Disabled>
     <Button Caption="2x2 fade" ID="8" Icon="">
-     <WindowState Visible="True" X="5" Y="40" Width="95" Height="95"/>
+     <WindowState Visible="False" X="5" Y="80" Width="95" Height="95"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -289,8 +431,8 @@
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
     </Button>
-    <Button Caption="ping pong" ID="9" Icon="">
-     <WindowState Visible="True" X="100" Y="40" Width="95" Height="95"/>
+    <Button Caption="an aus" ID="9" Icon="">
+     <WindowState Visible="False" X="100" Y="80" Width="95" Height="95"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -298,12 +440,12 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <Function ID="10"/>
+     <Function ID="19"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
     </Button>
     <Button Caption="chase fade" ID="10" Icon="">
-     <WindowState Visible="True" X="5" Y="135" Width="95" Height="95"/>
+     <WindowState Visible="False" X="5" Y="175" Width="95" Height="95"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -315,21 +457,8 @@
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
     </Button>
-    <Button Caption="all fade" ID="11" Icon="">
-     <WindowState Visible="True" X="100" Y="135" Width="95" Height="95"/>
-     <Appearance>
-      <FrameStyle>None</FrameStyle>
-      <ForegroundColor>Default</ForegroundColor>
-      <BackgroundColor>Default</BackgroundColor>
-      <BackgroundImage>None</BackgroundImage>
-      <Font>Default</Font>
-     </Appearance>
-     <Function ID="12"/>
-     <Action>Toggle</Action>
-     <Intensity Adjust="False">100</Intensity>
-    </Button>
-    <Button Caption="random fade" ID="12" Icon="">
-     <WindowState Visible="True" X="5" Y="230" Width="95" Height="95"/>
+    <Button Caption="random fade" ID="11" Icon="">
+     <WindowState Visible="False" X="100" Y="175" Width="95" Height="95"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -342,7 +471,7 @@
      <Intensity Adjust="False">100</Intensity>
     </Button>
     <Slider Caption="master" ID="15" WidgetStyle="Slider" InvertedAppearance="false">
-     <WindowState Visible="True" X="200" Y="40" Width="80" Height="270"/>
+     <WindowState Visible="False" X="200" Y="40" Width="85" Height="375"/>
      <Appearance>
       <FrameStyle>Sunken</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -351,11 +480,83 @@
       <Font>Default</Font>
      </Appearance>
      <SliderMode ValueDisplayStyle="Exact" ClickAndGoType="None">Submaster</SliderMode>
-     <Level LowLimit="0" HighLimit="255" Value="19"/>
+     <Level LowLimit="0" HighLimit="255" Value="255"/>
      <Playback>
       <Function>4294967295</Function>
      </Playback>
     </Slider>
+    <Button Caption="all fade" ID="4" Icon="">
+     <WindowState Visible="False" X="5" Y="325" Width="95" Height="95"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <Function ID="12"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+    </Button>
+    <Button Caption="ping pong" ID="5" Icon="">
+     <WindowState Visible="False" X="100" Y="325" Width="95" Height="95"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <Function ID="10"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+    </Button>
+    <Label Caption="Beats" ID="12">
+     <WindowState Visible="False" X="40" Y="45" Width="100" Height="30"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Label>
+    <Label Caption="Slow af" ID="13">
+     <WindowState Visible="False" X="45" Y="290" Width="100" Height="30"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+    </Label>
+    <Button Caption="slow seq" ID="16" Icon="">
+     <WindowState Visible="False" X="5" Y="420" Width="95" Height="90"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <Function ID="25"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+    </Button>
+    <Button Caption="grad" ID="18" Icon="">
+     <WindowState Visible="False" X="100" Y="420" Width="95" Height="90"/>
+     <Appearance>
+      <FrameStyle>None</FrameStyle>
+      <ForegroundColor>Default</ForegroundColor>
+      <BackgroundColor>Default</BackgroundColor>
+      <BackgroundImage>None</BackgroundImage>
+      <Font>Default</Font>
+     </Appearance>
+     <Function ID="28"/>
+     <Action>Toggle</Action>
+     <Intensity Adjust="False">100</Intensity>
+    </Button>
    </SoloFrame>
    <Frame Caption="setup shit" ID="20">
     <Appearance>
@@ -365,7 +566,7 @@
      <BackgroundImage>None</BackgroundImage>
      <Font>Default</Font>
     </Appearance>
-    <WindowState Visible="True" X="15" Y="590" Width="340" Height="275"/>
+    <WindowState Visible="False" X="20" Y="915" Width="340" Height="275"/>
     <AllowChildren>True</AllowChildren>
     <AllowResize>True</AllowResize>
     <ShowHeader>True</ShowHeader>
@@ -373,7 +574,7 @@
     <Collapsed>False</Collapsed>
     <Disabled>False</Disabled>
     <Button Caption="scene a" ID="41" Icon="">
-     <WindowState Visible="True" X="5" Y="40" Width="70" Height="70"/>
+     <WindowState Visible="False" X="5" Y="40" Width="70" Height="70"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -381,13 +582,13 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <Function ID="5"/>
+     <Function ID="20"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
      <Input Universe="2" Channel="2179"/>
     </Button>
     <Button Caption="scene b" ID="42" Icon="">
-     <WindowState Visible="True" X="80" Y="40" Width="70" Height="70"/>
+     <WindowState Visible="False" X="80" Y="40" Width="70" Height="70"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -395,13 +596,13 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <Function ID="9"/>
+     <Function ID="23"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
      <Input Universe="2" Channel="14872"/>
     </Button>
     <Button Caption="scene c" ID="43" Icon="">
-     <WindowState Visible="True" X="5" Y="115" Width="70" Height="70"/>
+     <WindowState Visible="False" X="5" Y="115" Width="70" Height="70"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -409,13 +610,13 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <Function ID="5"/>
+     <Function ID="24"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
      <Input Universe="2" Channel="11153"/>
     </Button>
     <Button Caption="scene d" ID="44" Icon="">
-     <WindowState Visible="True" X="80" Y="115" Width="70" Height="70"/>
+     <WindowState Visible="False" X="80" Y="115" Width="70" Height="70"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -423,13 +624,13 @@
       <BackgroundImage>None</BackgroundImage>
       <Font>Default</Font>
      </Appearance>
-     <Function ID="8"/>
+     <Function ID="22"/>
      <Action>Toggle</Action>
      <Intensity Adjust="False">100</Intensity>
      <Input Universe="2" Channel="24366"/>
     </Button>
     <Button Caption="scene e" ID="45" Icon="">
-     <WindowState Visible="True" X="5" Y="190" Width="70" Height="70"/>
+     <WindowState Visible="False" X="5" Y="190" Width="70" Height="70"/>
      <Appearance>
       <FrameStyle>None</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -443,7 +644,7 @@
      <Input Universe="2" Channel="20135"/>
     </Button>
     <Slider Caption="brightness" ID="6" WidgetStyle="Slider" InvertedAppearance="false">
-     <WindowState Visible="True" X="220" Y="45" Width="105" Height="215"/>
+     <WindowState Visible="False" X="205" Y="45" Width="105" Height="215"/>
      <Appearance>
       <FrameStyle>Sunken</FrameStyle>
       <ForegroundColor>Default</ForegroundColor>
@@ -459,11 +660,11 @@
     </Slider>
    </Frame>
    <SpeedDial Caption="Duration" ID="0">
-    <WindowState Visible="True" X="5" Y="490" Width="285" Height="70"/>
+    <WindowState Visible="False" X="185" Y="525" Width="210" Height="85"/>
     <Appearance>
      <FrameStyle>Sunken</FrameStyle>
      <ForegroundColor>Default</ForegroundColor>
-     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundColor>4279703319</BackgroundColor>
      <BackgroundImage>None</BackgroundImage>
      <Font>Default</Font>
     </Appearance>
@@ -477,10 +678,10 @@
     <Mult>
      <Input Universe="1" Channel="2"/>
     </Mult>
-    <Time>878</Time>
+    <Time>468</Time>
    </SpeedDial>
    <Slider Caption="speed 1s" ID="1" WidgetStyle="Slider" InvertedAppearance="false">
-    <WindowState Visible="True" X="310" Y="255" Width="75" Height="300"/>
+    <WindowState Visible="False" X="110" Y="525" Width="70" Height="290"/>
     <Appearance>
      <FrameStyle>Sunken</FrameStyle>
      <ForegroundColor>Default</ForegroundColor>
@@ -497,7 +698,7 @@
     </Playback>
    </Slider>
    <Button Caption="Nebel" ID="2" Icon="">
-    <WindowState Visible="True" X="145" Y="335" Width="140" Height="75"/>
+    <WindowState Visible="False" X="300" Y="245" Width="95" Height="135"/>
     <Appearance>
      <FrameStyle>None</FrameStyle>
      <ForegroundColor>Default</ForegroundColor>
@@ -505,14 +706,40 @@
      <BackgroundImage>None</BackgroundImage>
      <Font>Default</Font>
     </Appearance>
-    <Function ID="4294967295"/>
+    <Function ID="17"/>
+    <Action>Toggle</Action>
+    <Intensity Adjust="False">100</Intensity>
+   </Button>
+   <Button Caption="ext strobo" ID="19" Icon="">
+    <WindowState Visible="False" X="300" Y="180" Width="95" Height="65"/>
+    <Appearance>
+     <FrameStyle>None</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <Function ID="9"/>
+    <Action>Toggle</Action>
+    <Intensity Adjust="False">100</Intensity>
+   </Button>
+   <Button Caption="strobo" ID="21" Icon="">
+    <WindowState Visible="False" X="300" Y="5" Width="95" Height="110"/>
+    <Appearance>
+     <FrameStyle>None</FrameStyle>
+     <ForegroundColor>Default</ForegroundColor>
+     <BackgroundColor>Default</BackgroundColor>
+     <BackgroundImage>None</BackgroundImage>
+     <Font>Default</Font>
+    </Appearance>
+    <Function ID="21"/>
     <Action>Toggle</Action>
     <Intensity Adjust="False">100</Intensity>
    </Button>
   </Frame>
   <Properties>
-   <Size Width="400" Height="900"/>
-   <GrandMaster ChannelMode="Intensity" ValueMode="Reduce" SliderMode="Normal"/>
+   <Size Width="400" Height="1200"/>
+   <GrandMaster Visible="1" ChannelMode="Intensity" ValueMode="Reduce" SliderMode="Normal"/>
   </Properties>
  </VirtualConsole>
  <SimpleDesk>
