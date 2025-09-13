@@ -109,7 +109,7 @@ class ButtonController:
         else:
             print("No effect duration - ending immediately")
             
-        self.osc_client.send_message(osc_path, 0)
+        self.osc_client.send_message(osc_path, 1)
         print(f"Sent OSC: {osc_path} = 0")
     
     def cleanup(self):

@@ -21,7 +21,7 @@ IP = "127.0.0.1"
 OUT_PORT = 7700
 BUTTON_PIN = 16
 LED_PINS = {
-    "led_green": 20,
+    "led_green": 21,
     "led_red": 21
 }
 

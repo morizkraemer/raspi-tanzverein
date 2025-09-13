@@ -13,3 +13,5 @@ sleep 2
 # Start the Flask server in the foreground (so we can see its output)
 source venv/bin/activate
 python3 main.py
+
+wait
